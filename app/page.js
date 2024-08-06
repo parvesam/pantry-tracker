@@ -3,7 +3,7 @@ import Image from "next/image";
 import {useState, useEffect} from "react";
 import {firestore} from "@/firebase";
 import {Box, Typography} from "@mui/material";
-import {query, collection, getDocs} from "firebase";
+import {query, collection, getDocs} from "firebase/firestore";
 
 export default function Home() {
   const [inventory, setInventory] = useState([]);
@@ -21,16 +21,26 @@ export default function Home() {
       })
     })
     setInventory(inventoryList);
-  }
+    console.log(inventoryList);
+  };
 
   useEffect(()=>{
     updateInventory();
-  }, [])
+  }, []);
 
 
   return (
   <Box>
     <Typography variant = "h1">Inventory Management</Typography>
+    {
+      inventory.forEach((item)=>{
+        console.log(item)
+        return(<Box>
+        {item.name}
+        {item.count}
+        </Box>)
+      })
+    }
   </Box>
   )
-}
+};
