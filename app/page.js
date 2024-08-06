@@ -2,8 +2,8 @@
 import Image from "next/image";
 import {useState, useEffect} from "react";
 import {firestore} from "@/firebase";
-import {Box, Typography} from "@mui/material";
-import {query, collection, getDocs} from "firebase/firestore";
+import {Box, Modal, Typography} from "@mui/material";
+import {query, collection, getDocs, deleteDoc, doc} from "firebase/firestore";
 import e from "express";
 
 export default function Home() {
@@ -62,18 +62,11 @@ export default function Home() {
 
 
   return (
-  <Box>
+  <Box width = {"100vw"} height = {"100vh"} display= {"flex"} justifyContent={"center"} alignItems={"center"} gap={2}>
+    <Modal open={open} onClose={handleClose}>
+      <Box position={"absolute"} top={"50%"} left={"50%"} transform={"translate(-50%, -50%)"} width={400} bgcolor={"white"} border={"2px solid #000"} boxShadow={24} p={4} display={"flex"} flexDirection={"column"} gap={3}></Box>
+    </Modal>
     <Typography variant = "h1">Inventory Management</Typography>
-    {
-      inventory.forEach((item)=>{
-        console.log(item);
-        return(
-        <Box>
-        {item.name}
-        {item.count}
-        </Box>
-        )
-      })}
   </Box>
   )
 }
